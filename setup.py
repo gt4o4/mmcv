@@ -2,8 +2,16 @@ import glob
 import os
 import platform
 import re
-from pkg_resources import DistributionNotFound, get_distribution, parse_version
+from importlib.metadata import PackageNotFoundError, distribution
+from packaging.version import Version as parse_version
 from setuptools import find_packages, setup
+
+
+def get_distribution(name):
+    return distribution(name)
+
+
+DistributionNotFound = PackageNotFoundError
 
 EXT_TYPE = ''
 try:
